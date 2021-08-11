@@ -16,64 +16,63 @@ $this->title = Yii::t('app', 'Setting');
     <?= Html::beginForm() ?>
 
     <div class="form-group">
-        <?= Html::label(Yii::t('app', 'OJ名称'), 'ojName') ?>
+        <?= Html::label(Yii::t('app', 'OJ name '), 'ojName') ?>
         <?= Html::textInput('ojName', $settings['ojName'], ['class' => 'form-control']) ?>
     </div>
 
     <div class="form-group">
-        <?= Html::label(Yii::t('app', 'OI 模式'), 'oiMode') ?>
+        <?= Html::label(Yii::t('app', 'OI Mode'), 'oiMode') ?>
         <?= Html::radioList('oiMode', $settings['oiMode'], [
-            1 => '是',
-            0 => '否'
+            1 => 'Yes',
+            0 => 'No'
         ]) ?>
         <p class="hint-block">
-            注意，如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 -o 参数。
+            Note: that if you need to start the OI mode, in addition to selecting yes here, you also need to add the -o parameter when starting the judgment service.
         </p>
-        <p class="hint-block">即需要在 jnoj/judge 目录下通过 <code>sudo ./dispatcher -o</code>来启动判题服务。</p>
+        <p class="hint-block">cd jnoj/judge and run <code>sudo ./dispatcher -o</code> to start the judge server。</p>
     </div>
 
     <div class="form-group">
-        <?= Html::label(Yii::t('app', '学校名称'), 'ojName') ?>
+        <?= Html::label(Yii::t('app', 'School Name'), 'ojName') ?>
         <?= Html::textInput('schoolName', $settings['schoolName'], ['class' => 'form-control']) ?>
     </div>
 
     <div class="form-group">
-        <?= Html::label(Yii::t('app', '是否要共享代码'), 'isShareCode') ?>
+        <?= Html::label(Yii::t('app', 'Do you want to share code'), 'isShareCode') ?>
         <?= Html::radioList('isShareCode', $settings['isShareCode'], [
-            1 => '用户可以查看其他用户的代码',
-            0 => '用户的代码只能由自己或者管理员查看'
+            1 => 'Users can view the codes of other users',
+            0 => 'The code can only be viewed by submited user or the administrator'
         ]) ?>
     </div>
 
     <div class="form-group">
-        <?= Html::label(Yii::t('app', '封榜时间'), 'scoreboardFrozenTime') ?>
+        <?= Html::label(Yii::t('app', 'Frozen Time'), 'scoreboardFrozenTime') ?>
         <?= Html::textInput('scoreboardFrozenTime', $settings['scoreboardFrozenTime'], ['class' => 'form-control']) ?>
-        <p class="hint-block">单位：秒。这个时间是从比赛结束后开始计算，如值为
-            <?= $settings['scoreboardFrozenTime'] ?> 时，表示比赛结束 <?= intval($settings['scoreboardFrozenTime'] / 3600) ?> 个小时后不再封榜。
+        <p class="hint-block">Unit: seconds. This time is calculated from the end of the contest, such as the value
+            <?= $settings['scoreboardFrozenTime'] ?>When the contest is over <?= intval($settings['scoreboardFrozenTime'] / 3600) ?> the list will not be closed after an hour
         </p>
     </div>
 
     <hr>
     <div class="form-horizontal">
-        <h4>配置 SMTP 发送邮箱</h4>
+        <h4>SMTP config</h4>
         <p class="hint-block">
-            在用户忘记密码时，需要通过此处配置的邮箱来发送"重置密码"的邮箱给用户。
-            若使用默认的 "no-reply@jnoj.org"，不能保证此默认邮箱长期可用，建议自行配置自己的邮箱。
+           config your smtp info
         </p>
 
         <div class="form-group">
-            <?= Html::label('邮箱验证码有效时间', 'passwordResetTokenExpire', ['class' => 'col-sm-2 control-label']) ?>
+            <?= Html::label('E-mail verification code valid time', 'passwordResetTokenExpire', ['class' => 'col-sm-2 control-label']) ?>
             <div class="col-sm-10">
                 <?= Html::textInput('passwordResetTokenExpire', $settings['passwordResetTokenExpire'], ['class' => 'form-control']) ?>
-                <p class="hint-block">单位：秒。即 <?= intval($settings['passwordResetTokenExpire'] / 3600) ?> 小时后，用户邮箱确认链接失效。</p>
+                <p class="hint-block">Unit: seconds. The code activate in mail will expire after <?= intval($settings['passwordResetTokenExpire'] / 3600) ?> seconds。</p>
             </div>
         </div>
         <div class="form-group">
-            <?= Html::label('是否要验证邮箱？', 'mustVerifyEmail', ['class' => 'col-sm-2 control-label']) ?>
+            <?= Html::label('Do you want to all user must verify email？', 'mustVerifyEmail', ['class' => 'col-sm-2 control-label']) ?>
             <div class="col-sm-10">
                 <?= Html::radioList('mustVerifyEmail', $settings['mustVerifyEmail'], [
-                    1 => '新注册用户必须验证邮箱，且更改邮箱后必须验证邮箱',
-                    0 => '否'
+                    1 => 'New registered users must verify the mailbox, and must verify the mailbox after changing the mailbox',
+                    0 => 'No'
                 ]) ?>
             </div>
         </div>

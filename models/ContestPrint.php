@@ -77,7 +77,7 @@ class ContestPrint extends ActiveRecord
                 try {
                     $client = stream_socket_client('tcp://0.0.0.0:2121', $errno, $errmsg, 1);
                     $uids = Yii::$app->db->createCommand('SELECT id FROM user WHERE role=' . User::ROLE_ADMIN)->queryColumn();
-                    $content = '比赛：' . $this->contest->title .  ' - 提交了新的打印请求。';
+                    $content = 'Contest：' . $this->contest->title .  ' - A new print request has been submitted.';
                     foreach ($uids as $uid) {
                         fwrite($client, json_encode([
                             'uid' => $uid,

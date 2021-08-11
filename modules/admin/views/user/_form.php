@@ -15,11 +15,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'newPassword')->textInput() ?>
 
     <?= $form->field($model, 'role')->radioList([
-        $model::ROLE_PLAYER => '参赛用户',
-        $model::ROLE_USER => '普通用户',
-        $model::ROLE_VIP => 'VIP用户',
-        $model::ROLE_ADMIN => '管理员'
-    ]) ?>
+        $model::ROLE_PLAYER => 'PARTICIPATING USER',
+        $model::ROLE_USER => 'GENERAL USER',
+        $model::ROLE_VIP => 'VIP',
+        $model::ROLE_ADMIN => 'ADMIN'
+    ]) ?>Participating
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
