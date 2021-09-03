@@ -36,7 +36,7 @@ After install MySQL (or MariaDB), run `mysql_secure_installation` to set `root` 
 
 Example to install PHP7.2 on Ubuntu 18.04:
 ~~~
-sudo install php7.2
+sudo apt install php7.2
 ~~~
 Install PHP extension:
 ```bash
