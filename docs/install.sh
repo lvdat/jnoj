@@ -4,12 +4,14 @@ export PATH
 #
 # Auto install JNOJ
 #
-# Copyright (C) 2017-2019 Shiyang <dr@shiyang.me>
+# Copyright (C) 2017-2019 Shiyang <dr@shiyang.me>, 2021 - edited by levandat
 #
 # System Required:  CentOS 6+, Debian7+, Ubuntu16+
 #
 # Reference URL:
 # https://github.com/shi-yang/jnoj
+# Edited Ver:
+# https://github.com/lvdat/jnoj
 #
 
 red='\033[0;31m'
@@ -147,11 +149,13 @@ install_dependencies(){
         done
         ln -s /usr/bin/python3.6 /usr/bin/python3 > /dev/null 2>&1
     elif check_sys packageManager apt; then
+        echo -e "APT package detected, please wait..."
+        
         apt_depends=(
             nginx
             mysql-server
             php-fpm php-mysql php-common php-gd php-zip php-mbstring php-xml
-            libmysqlclient-dev libmysql++-dev git make gcc g++
+            libmysqlclient-dev libmysql++-dev git make gcc g++ python3-dev
         )
         ver=`echo "$(getversion)" | awk -F '.' '{print $1}'`
         if [ $ver -le 16 ]; then
@@ -162,6 +166,7 @@ install_dependencies(){
 
         apt -y update
         for depend in ${apt_depends[@]}; do
+            echo -e "Installing ${depend}"
             error_detect_depends "apt -y install ${depend}"
         done
     fi
@@ -235,7 +240,7 @@ EOF
         systemctl restart php${PHP_VERSION}-fpm
     fi
     
-    mysql -h localhost -u$DBUSER -p$DBPASS -e "create database jnoj;"
+    mysql -h localhost -u$DBUSER -p$DBPASS -e "CREATE DATABASE jnoj CHARACTER SET utf8;"
     if [ $? -eq 0 ]; then
         # Modify database information
         sed -i "s/root/$DBUSER/g" /home/judge/jnoj/config/db.php
@@ -277,7 +282,9 @@ install_jnoj(){
 
     /usr/sbin/useradd -m -u 1536 judge
     cd /home/judge/
-    git clone https://gitee.com/shi-yang/jnoj.git
+    echo "Downloading latest version..."
+    
+    git clone https://github.com/lvdat/jnoj.git
 
     config_jnoj
     if check_sys packageManager yum; then
